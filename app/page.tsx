@@ -119,13 +119,9 @@ export default function Home() {
       <section id="estimator" className="py-24 bg-brand-bg border-b border-black/[0.04]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="max-w-3xl mb-16">
-            <p className="text-brand-secondary font-semibold text-sm uppercase tracking-widest mb-3">Project Estimator</p>
-            <h2 className="text-4xl font-extrabold text-[#1d1d1f] mb-5 tracking-tight">
+            <h2 className="text-4xl font-extrabold text-[#1d1d1f] tracking-tight">
               See your timeline instantly
             </h2>
-            <p className="text-lg text-[#86868b] leading-relaxed">
-              Pick what you need and get a real-time delivery estimate. No sales calls required.
-            </p>
           </div>
           <CostEstimator />
         </div>
