@@ -182,7 +182,7 @@ export default function Home() {
               { title: "Legal", links: ["Privacy Policy", "Terms of Service", "Cookie Policy"] },
             ].map((col, i) => (
               <div key={i}>
-                <h4 className="text-sm font-bold text-[#1d1d1f] uppercase tracking-wider mb-4">{col.title}</h4>
+                <h4 className="text-sm font-bold text-brand-text uppercase tracking-wider mb-4">{col.title}</h4>
                 <ul className="space-y-2.5">
                   {col.links.map((link, li) => (
                     <li key={li}>
@@ -191,6 +191,7 @@ export default function Home() {
                   ))}
                 </ul>
               </div>
+            ))}
           </div>
 
           {/* Giant full-width display text */}
