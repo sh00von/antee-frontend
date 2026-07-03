@@ -191,7 +191,13 @@ export default function Home() {
                   ))}
                 </ul>
               </div>
-            ))}
+          </div>
+
+          {/* Giant full-width display text */}
+          <div className="mt-14 mb-8 select-none pointer-events-none overflow-hidden">
+            <h1 className="text-[14vw] font-black text-center uppercase tracking-[0.1em] leading-none select-none text-transparent bg-clip-text bg-gradient-to-b from-brand-primary/[0.07] to-brand-secondary/[0.02]">
+              ANTEE
+            </h1>
           </div>
 
           <div className="border-t border-black/[0.04] pt-8 flex flex-col md:flex-row justify-between items-center gap-4">

@@ -21,6 +21,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Custom text selection styling */
+::selection {
+  background-color: rgba(122, 42, 198, 0.18);
+  color: #1d1d1f;
+}
+
+::-moz-selection {
+  background-color: rgba(122, 42, 198, 0.18);
+  color: #1d1d1f;
+}
+
 /* Subtle grid background */
 .tech-grid {
   background-size: 60px 60px;
