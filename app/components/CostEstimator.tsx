@@ -6,24 +6,21 @@ interface ServiceItem {
   id: string;
   name: string;
   baseWeeks: number;
-  description: string;
   icon: string;
-  color: string;
-  tag: string;
 }
 
 const SERVICES: ServiceItem[] = [
-  { id: "web", name: "Next.js Web Portal", baseWeeks: 3, description: "Server-rendered React 19, SEO-optimized, responsive design system.", icon: "fa-globe", color: "var(--color-brand-primary)", tag: "Frontend" },
-  { id: "mobile", name: "Native iOS / Android", baseWeeks: 6, description: "React Native with native modules and offline SQLite sync.", icon: "fa-mobile-alt", color: "#34c759", tag: "Mobile" },
-  { id: "erp", name: "Custom ERP Engine", baseWeeks: 5, description: "Resource schemas, inventory ledger, and role-based auth.", icon: "fa-project-diagram", color: "var(--color-brand-secondary)", tag: "Backend" },
-  { id: "api", name: "Database & API Layer", baseWeeks: 2, description: "PostgreSQL schema, GraphQL and gRPC endpoints.", icon: "fa-database", color: "#ff9f0a", tag: "Data" },
-  { id: "cloud", name: "CI/CD & Cloud Deploy", baseWeeks: 1, description: "Docker containers, Kubernetes orchestration, SLA configs.", icon: "fa-cloud-upload-alt", color: "#af52de", tag: "DevOps" },
+  { id: "web", name: "Web Portal", baseWeeks: 3, icon: "fa-globe" },
+  { id: "mobile", name: "Mobile App", baseWeeks: 6, icon: "fa-mobile-alt" },
+  { id: "erp", name: "ERP Engine", baseWeeks: 5, icon: "fa-project-diagram" },
+  { id: "api", name: "API Layer", baseWeeks: 2, icon: "fa-database" },
+  { id: "cloud", name: "Cloud DevOps", baseWeeks: 1, icon: "fa-cloud-upload-alt" },
 ];
 
 const TIERS = [
-  { id: 1, name: "Standard", label: "MVP", multiplier: 1.0, desc: "Core features, single region" },
-  { id: 2, name: "Growth", label: "Scale", multiplier: 1.35, desc: "Multi-region, load balancing" },
-  { id: 3, name: "Enterprise", label: "SLA", multiplier: 1.75, desc: "99.99% uptime, dedicated support" },
+  { id: 1, name: "Standard", multiplier: 1.0 },
+  { id: 2, name: "Growth", multiplier: 1.35 },
+  { id: 3, name: "Enterprise", multiplier: 1.75 },
 ];
 
 export default function CostEstimator() {
@@ -47,7 +44,6 @@ export default function CostEstimator() {
 
   const totalWeeks = Math.ceil(rawWeeks * tier.multiplier);
 
-  // Animate week counter
   useEffect(() => {
     const start = prevWeeksRef.current;
     const end = totalWeeks;
@@ -57,7 +53,7 @@ export default function CostEstimator() {
     const animate = (now: number) => {
       const elapsed = now - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
       setAnimatedWeeks(Math.round(start + (end - start) * eased));
       if (progress < 1) requestAnimationFrame(animate);
     };
@@ -82,223 +78,86 @@ export default function CostEstimator() {
   );
   const consultUrl = `mailto:hello@anteesolutions.com?subject=${mailtoSubject}&body=${mailtoBody}`;
 
-  // Progress bar percentage (max 30 weeks)
-  const progressPct = Math.min((totalWeeks / 30) * 100, 100);
-
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-
-      {/* Left — Service Cards */}
-      <div className="lg:col-span-7 space-y-6">
-
-        {/* Service Selection Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {SERVICES.map((service) => {
-            const isActive = selectedServices.includes(service.id);
+    <div className="max-w-4xl mx-auto bg-white rounded-3xl p-8 lg:p-12 border border-black/[0.04] shadow-sm text-center">
+      
+      {/* Step 1: Services Toggles Row */}
+      <div className="mb-10">
+        <p className="text-xs font-bold text-brand-sub uppercase tracking-widest mb-4">Select Modules</p>
+        <div className="flex flex-wrap gap-3 justify-center">
+          {SERVICES.map((s) => {
+            const isActive = selectedServices.includes(s.id);
             return (
               <button
-                key={service.id}
-                onClick={() => handleServiceToggle(service.id)}
-                className={`group relative text-left p-6 rounded-2xl border-2 transition-all duration-300 cursor-pointer ${
+                key={s.id}
+                onClick={() => handleServiceToggle(s.id)}
+                className={`inline-flex items-center gap-2.5 px-6 py-3 rounded-full text-sm font-semibold border-2 transition-all cursor-pointer ${
                   isActive
-                    ? "bg-white border-[color:var(--active-color)] shadow-lg"
-                    : "bg-white border-transparent shadow-sm hover:shadow-md hover:border-black/[0.08]"
+                    ? "bg-brand-primary border-brand-primary text-white shadow-md shadow-brand-primary/10"
+                    : "bg-white border-black/[0.06] text-brand-text hover:border-black/[0.12]"
                 }`}
-                style={{
-                  "--active-color": service.color,
-                  borderColor: isActive ? service.color : undefined,
-                } as React.CSSProperties}
               >
-                {/* Selection indicator */}
-                <div className={`absolute top-4 right-4 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-200 ${
-                  isActive
-                    ? "border-transparent"
-                    : "border-black/[0.15]"
-                }`}
-                  style={{ backgroundColor: isActive ? service.color : "transparent" }}
-                >
-                  {isActive && <i className="fas fa-check text-white text-[10px]" />}
-                </div>
-
-                {/* Icon */}
-                <div
-                  className={`w-12 h-12 rounded-xl flex items-center justify-center text-lg mb-4 transition-all duration-300 ${
-                    isActive ? "text-white shadow-md" : "text-[#86868b] bg-[#f5f5f7]"
-                  }`}
-                  style={{
-                    backgroundColor: isActive ? service.color : undefined,
-                    boxShadow: isActive ? `0 4px 14px ${service.color}30` : undefined,
-                  }}
-                >
-                  <i className={`fas ${service.icon}`} />
-                </div>
-
-                {/* Tag */}
-                <span className="text-[11px] font-bold uppercase tracking-widest mb-2 inline-block"
-                  style={{ color: isActive ? service.color : "#86868b" }}
-                >
-                  {service.tag}
-                </span>
-
-                <h4 className="text-base font-bold text-[#1d1d1f] mb-1">{service.name}</h4>
-                <p className="text-sm text-[#86868b] leading-relaxed">{service.description}</p>
-
-                {/* Week contribution */}
-                <div className={`mt-4 pt-3 border-t flex items-center justify-between transition-colors ${
-                  isActive ? "border-black/[0.06]" : "border-black/[0.04]"
-                }`}>
-                  <span className="text-xs text-[#86868b]">Base timeline</span>
-                  <span className={`text-sm font-bold ${isActive ? "" : "text-[#86868b]"}`}
-                    style={{ color: isActive ? service.color : undefined }}
-                  >
-                    {service.baseWeeks} weeks
-                  </span>
-                </div>
+                <i className={`fas ${s.icon} text-[13px] ${isActive ? "text-white" : "text-brand-sub"}`} />
+                <span>{s.name}</span>
+                {isActive && <i className="fas fa-check text-[10px] text-white ml-0.5" />}
               </button>
             );
           })}
         </div>
+      </div>
 
-        {/* Tier Selector */}
-        <div className="bg-white rounded-2xl border border-black/[0.06] p-6 shadow-sm">
-          <p className="text-sm font-semibold text-[#1d1d1f] mb-4">Infrastructure Tier</p>
-          <div className="grid grid-cols-3 gap-3">
-            {TIERS.map((t) => (
-              <button
-                key={t.id}
-                onClick={() => setActiveTier(t.id)}
-                className={`relative p-4 rounded-xl border-2 text-left transition-all duration-200 cursor-pointer ${
-                  activeTier === t.id
-                    ? "border-brand-primary bg-brand-primary/[0.03]"
-                    : "border-black/[0.06] hover:border-black/[0.12]"
-                }`}
-              >
-                {activeTier === t.id && (
-                  <div className="absolute top-3 right-3 w-5 h-5 rounded-full bg-brand-primary flex items-center justify-center">
-                    <i className="fas fa-check text-white text-[9px]" />
-                  </div>
-                )}
-                <p className={`text-sm font-bold mb-0.5 ${activeTier === t.id ? "text-brand-primary" : "text-[#1d1d1f]"}`}>
-                  {t.name}
-                </p>
-                <p className="text-xs text-[#86868b]">{t.desc}</p>
-              </button>
-            ))}
-          </div>
+      {/* Step 2: Infrastructure Tier Selector */}
+      <div className="mb-10 max-w-lg mx-auto">
+        <p className="text-xs font-bold text-brand-sub uppercase tracking-widest mb-4">Infrastructure Tier</p>
+        <div className="flex bg-[#f5f5f7] p-1 rounded-xl gap-1 select-none">
+          {TIERS.map((t) => (
+            <button
+              key={t.id}
+              onClick={() => setActiveTier(t.id)}
+              className={`flex-1 py-2.5 text-xs font-bold rounded-lg transition-all cursor-pointer ${
+                activeTier === t.id
+                  ? "bg-white text-brand-primary shadow-sm"
+                  : "text-brand-sub hover:text-brand-text"
+              }`}
+            >
+              {t.name}
+            </button>
+          ))}
         </div>
       </div>
 
-      {/* Right — Live Summary */}
-      <div className="lg:col-span-5">
-        <div className="bg-white rounded-2xl border border-black/[0.06] shadow-sm overflow-hidden sticky top-24">
-
-          {/* Summary Header */}
-          <div className="p-6 pb-0">
-            <p className="text-xs font-bold text-[#86868b] uppercase tracking-widest mb-1">Estimated Timeline</p>
-            <div className="flex items-baseline gap-2 mb-1">
-              <span className="text-6xl font-extrabold text-[#1d1d1f] tabular-nums tracking-tight">
-                {selectedServices.length > 0 ? animatedWeeks : "—"}
-              </span>
-              {selectedServices.length > 0 && (
-                <span className="text-xl font-semibold text-[#86868b]">weeks</span>
-              )}
-            </div>
-
-            {/* Animated progress bar */}
-            <div className="w-full h-2 rounded-full bg-[#f5f5f7] overflow-hidden mt-3 mb-6">
-              <div
-                className="h-full rounded-full transition-all duration-500 ease-out"
-                style={{
-                  width: `${selectedServices.length > 0 ? progressPct : 0}%`,
-                  background: "linear-gradient(90deg, var(--color-brand-primary), var(--color-brand-secondary))",
-                }}
-              />
-            </div>
-          </div>
-
-          {/* Summary Details */}
-          <div className="px-6 pb-6 space-y-4">
-            {/* Selected modules */}
-            <div>
-              <p className="text-xs font-semibold text-[#86868b] uppercase tracking-wide mb-3">Selected Modules</p>
-              {selectedServices.length > 0 ? (
-                <div className="flex flex-wrap gap-2">
-                  {SERVICES.filter((s) => selectedServices.includes(s.id)).map((s) => (
-                    <span
-                      key={s.id}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white shadow-sm"
-                      style={{ backgroundColor: s.color }}
-                    >
-                      <i className={`fas ${s.icon} text-[10px]`} /> {s.name}
-                    </span>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-sm text-[#86868b] italic">Select modules to begin</p>
-              )}
-            </div>
-
-            {/* Architecture & Tier */}
-            <div className="grid grid-cols-2 gap-3">
-              <div className="p-4 rounded-xl bg-[#f5f5f7]">
-                <p className="text-[11px] font-bold text-[#86868b] uppercase tracking-wide mb-1">Architecture</p>
-                <p className="text-sm font-semibold text-[#1d1d1f]">{architecture}</p>
-              </div>
-              <div className="p-4 rounded-xl bg-[#f5f5f7]">
-                <p className="text-[11px] font-bold text-[#86868b] uppercase tracking-wide mb-1">SLA Tier</p>
-                <p className="text-sm font-semibold text-[#1d1d1f]">{tier.name}</p>
-              </div>
-            </div>
-
-            {/* Module Breakdown */}
+      {/* Step 3: Massive Live Display Statement */}
+      <div className="border-t border-black/[0.04] pt-10 mt-10">
+        <div className="flex flex-col items-center justify-center mb-8">
+          <p className="text-xs font-bold text-brand-sub uppercase tracking-widest mb-3">Estimated Timeline</p>
+          <div className="flex items-baseline gap-2 mb-2">
+            <span className="text-6xl lg:text-7xl font-black text-brand-text tabular-nums tracking-tight">
+              {selectedServices.length > 0 ? animatedWeeks : "—"}
+            </span>
             {selectedServices.length > 0 && (
-              <div>
-                <p className="text-xs font-semibold text-[#86868b] uppercase tracking-wide mb-3">Timeline Breakdown</p>
-                <div className="space-y-2">
-                  {SERVICES.filter((s) => selectedServices.includes(s.id)).map((s) => {
-                    const adjusted = Math.ceil(s.baseWeeks * tier.multiplier);
-                    const barWidth = (adjusted / totalWeeks) * 100;
-                    return (
-                      <div key={s.id} className="flex items-center gap-3">
-                        <span className="text-xs text-[#6e6e73] w-28 shrink-0 truncate">{s.name}</span>
-                        <div className="flex-1 h-2 rounded-full bg-[#f5f5f7] overflow-hidden">
-                          <div
-                            className="h-full rounded-full transition-all duration-500"
-                            style={{
-                              width: `${barWidth}%`,
-                              backgroundColor: s.color,
-                            }}
-                          />
-                        </div>
-                        <span className="text-xs font-bold text-[#1d1d1f] w-8 text-right tabular-nums">{adjusted}w</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
+              <span className="text-lg font-bold text-brand-sub">weeks</span>
             )}
           </div>
-
-          {/* CTA */}
-          <div className="p-6 border-t border-black/[0.04] bg-[#fafafa]">
-            {selectedServices.length > 0 ? (
-              <a
-                href={consultUrl}
-                className="btn-primary w-full py-3.5 rounded-xl text-sm text-center block shadow-md shadow-brand-primary/15 font-semibold"
-              >
-                Send Configuration →
-              </a>
-            ) : (
-              <button disabled className="w-full py-3.5 rounded-xl text-sm bg-[#f5f5f7] border border-black/[0.06] text-[#86868b] cursor-not-allowed font-semibold">
-                Select modules to continue
-              </button>
-            )}
-            <p className="text-xs text-[#86868b] text-center mt-3">
-              Free architecture review • No commitment
-            </p>
-          </div>
+          <p className="text-sm text-brand-sub max-w-md mt-1 leading-relaxed">
+            Recommended Architecture: <span className="font-semibold text-brand-text">{architecture}</span>
+          </p>
         </div>
+
+        {/* CTA */}
+        {selectedServices.length > 0 ? (
+          <a
+            href={consultUrl}
+            className="btn-primary inline-flex px-10 py-4 rounded-full text-base font-semibold shadow-md shadow-brand-primary/15"
+          >
+            Start with this setup →
+          </a>
+        ) : (
+          <button disabled className="inline-flex px-10 py-4 rounded-full text-base bg-[#f5f5f7] border border-black/[0.06] text-brand-sub cursor-not-allowed font-semibold">
+            Select modules to estimate
+          </button>
+        )}
       </div>
+
     </div>
   );
 }
