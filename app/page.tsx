@@ -179,7 +179,6 @@ export default function Home() {
             {[
               { title: "Services", links: ["Web Development", "Mobile Apps", "UI/UX Design", "Business Tools"] },
               { title: "Company", links: ["About", "Careers", "Portfolio", "Contact"] },
-              { title: "Legal", links: ["Privacy Policy", "Terms of Service", "Cookie Policy"] },
             ].map((col, i) => (
               <div key={i}>
                 <h4 className="text-sm font-bold text-brand-text uppercase tracking-wider mb-4">{col.title}</h4>
@@ -202,7 +201,7 @@ export default function Home() {
           </div>
 
           <div className="border-t border-black/[0.04] pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-[#86868b]">&copy; 2025 Antee Solutions. All rights reserved.</p>
+            <p className="text-sm text-[#86868b]">&copy; {new Date().getFullYear()} Antee Solutions. All rights reserved.</p>
             <p className="text-sm text-[#86868b] flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#34c759] inline-block" />
               Taking on new projects
