@@ -116,7 +116,7 @@ export default function Home() {
       </section>
 
       {/* ───── Estimator ───── */}
-      <section id="estimator" className="py-24 bg-white">
+      <section id="estimator" className="py-24 bg-brand-bg border-b border-black/[0.04]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="max-w-3xl mb-16">
             <p className="text-brand-secondary font-semibold text-sm uppercase tracking-widest mb-3">Project Estimator</p>
@@ -132,7 +132,7 @@ export default function Home() {
       </section>
 
       {/* ───── Contact ───── */}
-      <section id="contact" className="py-24 bg-[#f5f5f7]">
+      <section id="contact" className="py-24 bg-white border-b border-black/[0.04]">
         <div className="max-w-3xl mx-auto px-6 lg:px-8">
           <div className="glass-panel rounded-3xl p-10 lg:p-14 text-center shadow-sm">
             <div className="flex items-center justify-center gap-2.5 mx-auto mb-8 select-none">
@@ -163,7 +163,7 @@ export default function Home() {
       </section>
 
       {/* ───── Footer ───── */}
-      <footer className="bg-white border-t border-black/[0.04] py-14">
+      <footer className="bg-brand-bg py-14">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
 
 
