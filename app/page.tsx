@@ -133,32 +133,30 @@ export default function Home() {
 
       {/* ───── Contact ───── */}
       <section id="contact" className="py-24 bg-white border-b border-black/[0.04]">
-        <div className="max-w-3xl mx-auto px-6 lg:px-8">
-          <div className="glass-panel rounded-3xl p-10 lg:p-14 text-center shadow-sm">
-            <div className="flex items-center justify-center gap-2.5 mx-auto mb-8 select-none">
-              <img src="/logo.png" alt="Antee Logo" className="h-10 w-auto object-contain" />
-              <span className="font-bold text-2xl tracking-tight text-brand-text">Antee Solutions</span>
-            </div>
-
-            <h2 className="text-3xl lg:text-4xl font-extrabold text-[#1d1d1f] mb-5 tracking-tight">
-              Let&apos;s build something great
-            </h2>
-            <p className="text-lg text-[#86868b] leading-relaxed mb-10 max-w-xl mx-auto">
-              Whether it&apos;s a mobile app, a web platform, or a custom business tool — we&apos;d love to hear about your project.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="mailto:hello@anteesolutions.com" className="btn-primary px-8 py-3.5 rounded-full text-base shadow-md shadow-brand-primary/15">
-                Get in Touch
-              </a>
-              <a href="#estimator" className="btn-outline px-8 py-3.5 rounded-full text-base">
-                Try the Estimator
-              </a>
-            </div>
-            <p className="mt-8 text-sm text-[#86868b]">
-              Free consultation • No commitment required
-            </p>
+        <div className="max-w-3xl mx-auto px-6 lg:px-8 text-center">
+          <div className="flex items-center justify-center gap-2.5 mx-auto mb-8 select-none">
+            <img src="/logo.png" alt="Antee Logo" className="h-10 w-auto object-contain" />
+            <span className="font-bold text-2xl tracking-tight text-brand-text">Antee Solutions</span>
           </div>
+
+          <h2 className="text-3xl lg:text-4xl font-extrabold text-[#1d1d1f] mb-5 tracking-tight">
+            Let&apos;s build something great
+          </h2>
+          <p className="text-lg text-[#86868b] leading-relaxed mb-10 max-w-xl mx-auto">
+            Whether it&apos;s a mobile app, a web platform, or a custom business tool — we&apos;d love to hear about your project.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="mailto:hello@anteesolutions.com" className="btn-primary px-8 py-3.5 rounded-full text-base shadow-md shadow-brand-primary/15">
+              Get in Touch
+            </a>
+            <a href="#estimator" className="btn-outline px-8 py-3.5 rounded-full text-base">
+              Try the Estimator
+            </a>
+          </div>
+          <p className="mt-8 text-sm text-[#86868b]">
+            Free consultation • No commitment required
+          </p>
         </div>
       </section>
 
