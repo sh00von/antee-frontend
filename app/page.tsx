@@ -165,33 +165,7 @@ export default function Home() {
       {/* ───── Footer ───── */}
       <footer className="bg-white border-t border-black/[0.04] py-14">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
-            <div className="md:col-span-2">
-              <div className="flex items-center gap-2.5 mb-5">
-                <img src="/logo.png" alt="Antee Logo" className="h-7 w-auto object-contain" />
-                <span className="font-bold text-xl text-brand-text">Antee Solutions</span>
-              </div>
-              <p className="text-sm text-[#86868b] leading-relaxed max-w-sm">
-                A digital agency that designs and builds apps, websites, and business software.
-              </p>
-            </div>
 
-            {[
-              { title: "Services", links: ["Web Development", "Mobile Apps", "UI/UX Design", "Business Tools"] },
-              { title: "Company", links: ["About", "Careers", "Portfolio", "Contact"] },
-            ].map((col, i) => (
-              <div key={i} className="md:col-span-1">
-                <h4 className="text-sm font-bold text-brand-text uppercase tracking-wider mb-4">{col.title}</h4>
-                <ul className="space-y-2.5">
-                  {col.links.map((link, li) => (
-                    <li key={li}>
-                      <a href="#" className="text-sm text-[#86868b] hover:text-brand-primary transition-colors">{link}</a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
 
           {/* Giant full-width display text */}
           <div className="mt-14 mb-8 select-none pointer-events-none overflow-hidden">
